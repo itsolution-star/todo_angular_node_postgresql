@@ -1,0 +1,19 @@
+{
+  "development": {
+    "database": "todo_ang_development",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "database": "todo_ang_test",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "todo_ang_production",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}
