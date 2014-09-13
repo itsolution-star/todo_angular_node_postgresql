@@ -6,45 +6,61 @@ var express = require('express'),
   lodash = require('lodash'),
   app = express();
 
-  // Middleware
-  app.use(bodyParser.urlencoded({extended: false}));
-  app.use(express.static(__dirname + '/public'));
-  app.use(bodyParser.urlencoded({extended: false}));
+// Middleware
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(express.static(__dirname + '/public'));
+app.use(bodyParser.urlencoded({extended: false}));
 
-  // Views
-  app.set('views', __dirname + '/views');
-  app.engine('html', require('ejs').renderFile);
-  app.set('view engine', 'html');
+// Views
+app.set('views', __dirname + '/views');
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
 
-  // Routes
-  app.get('/', function(req, res) {
-    res.render("index");
+// Routes
+app.get('/', function(req, res) {
+  res.render("index");
+});
+
+app.get('/tasks', function(req, res) {
+  db.task.findAll().success(function(tasks) {
+    res.json({tasks: tasks});
+  }).error(function() {
+    res.send('No tasks found.');
   });
+});
 
-  app.get('/tasks', function(req, res) {
-    db.task.findAll().success(function(tasks) {
-      res.json({tasks: tasks});
-    }).error(function() {
-      res.send('No tasks found.');
+app.get('/tasks/:id', function(req, res) {
+  var id = req.params.id;
+  db.task.find(id).success(function(task) {
+    res.json({task: task});
+  });
+});
+
+app.post('/tasks', function(req, res) {
+  var newTask = req.params.task;
+  db.task.create(newTask).success(function(task) {
+    res.json({task: task});
+  });
+});
+
+app.put('/tasks/:id', function(req, res) {
+  var id = req.params.id;
+  var updateTask = req.params.task;
+  db.task.find(id).success(function(task) {
+    task.updateAttributes(updateTask).success(function(task) {
+      res.json({task: task});
     });
   });
+});
 
-  app.get('/tasks/:id', function(req, res) {
-    res.send("Task Show");
+app.delete('/tasts/:id', function(req, res) {
+  var id = req.params.id;
+  db.task.find(id).success(function(task) {
+    task.destroy();
+    res.json({message: "Task destroyed"});
   });
+});
 
-  app.post('/tasks', function(req, res) {
-
-  });
-
-  app.post('/tasks/:id', function(req, res) {
-
-  });
-
-  app.delete('/tasts/:id', function(req, res) {
-
-  });
-
-  app.listen(3000, function() {
-    console.log("SERVER RUNNING");
-  });
+app.listen(3000, function() {
+  console.log("SERVER RUNNING");
+});
