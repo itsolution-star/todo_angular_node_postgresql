@@ -23,6 +23,7 @@ Object.keys(db).forEach(function(modelName) {
   }
 })
 
+
 module.exports = lodash.extend({
   sequelize: sequelize,
   Sequelize: Sequelize

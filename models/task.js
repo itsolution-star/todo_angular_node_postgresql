@@ -4,7 +4,7 @@ module.exports = function Task(sequelize, DataTypes) {
     type: DataTypes.STRING,
     notEmpty: true
   },
-  status: {
+  done: {
     type: DataTypes.BOOLEAN,
     notEmpty: true
   }
