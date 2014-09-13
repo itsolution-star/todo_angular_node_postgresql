@@ -5,8 +5,16 @@
   <title>Todo App</title>
   <link rel="stylesheet" href="/styles/global.css">
 </head>
-<body>
+<body ng-app="TodoApp">
   <h1>Hello World</h1>
+  <div ng-view ng-controller="TodoCtrl">
+    <ul>
+      <li ng-repeat="task in tasks">
+        <h3>{{task.text}}</h3>
+      </li>
+    </ul>
+
+  </div>
 
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
   <script src="/js/dist/all.min.js"></script>

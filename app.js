@@ -17,10 +17,6 @@ app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
 // Routes
-app.get('/', function(req, res) {
-  res.render("index");
-});
-
 app.get('/tasks', function(req, res) {
   db.task.findAll().success(function(tasks) {
     res.json({tasks: tasks});
@@ -60,6 +56,10 @@ app.delete('/tasts/:id', function(req, res) {
     res.json({message: "Task destroyed"});
   });
 });
+
+app.get('*', function(req, res) {
+  res.sendFile('./public/index.html');
+})
 
 app.listen(3000, function() {
   console.log("SERVER RUNNING");

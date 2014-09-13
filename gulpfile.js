@@ -1,7 +1,7 @@
 // Include gulp
 var gulp = require('gulp');
 
-// Include Our Plugins
+// Include Plugins
 var jshint = require('gulp-jshint');
 var sass = require('gulp-sass');
 var concat = require('gulp-concat');
@@ -9,7 +9,7 @@ var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var coffee = require('gulp-coffee');
 
-// compile sass
+// Compile sass
 gulp.task('sass', function() {
   return gulp.src('./public/styles/scss/*.scss')
     .pipe(sass())
@@ -23,7 +23,7 @@ gulp.task('compile-coffee', function() {
     .pipe(gulp.dest('./public/js'));
 });
 
-// Add concat and minify js here
+// Concat and minify js
 gulp.task('scripts', function() {
   return gulp.src('./public/js/*.js')
     .pipe(concat('all.js'))
