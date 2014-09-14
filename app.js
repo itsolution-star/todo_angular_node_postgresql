@@ -8,7 +8,7 @@ var express = require('express'),
 
 // Middleware
 app.use(express.static(__dirname + '/public'));
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded());
 
 // Views
 app.set('views', __dirname + '/views');
@@ -32,9 +32,10 @@ app.get('/tasks/:id', function(req, res) {
 });
 
 app.post('/tasks', function(req, res) {
-  var newTask = req.params.task;
+  console.log(req.body)
+  var newTask = req.body;
   db.task.create(newTask).success(function(task) {
-    res.json({task: task});
+    res.json(task);
   });
 });
 
@@ -58,7 +59,7 @@ app.delete('/tasks/:id', function(req, res) {
 
 // loads the angular singlepage template
 app.get('*', function(req, res) {
-  res.render('/index.html');
+  res.render('./public/index.html');
 });
 
 app.listen(3000, function() {

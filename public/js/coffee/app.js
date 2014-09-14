@@ -26,6 +26,7 @@ TodoApp.controller('TodoCtrl', [
     $scope.getTasks();
     return $scope.addTask = function(newTask) {
       $scope.newTask.done = false;
+      console.log(newTask);
       return $http.post('/tasks', $scope.newTask).success(function(data) {
         return console.log(data);
       });
