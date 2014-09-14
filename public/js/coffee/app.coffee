@@ -24,9 +24,20 @@ TodoApp.controller 'TodoCtrl', ['$scope', '$http', ($scope, $http) ->
   $scope.getTasks()
 
   $scope.addTask = (newTask) ->
-    $scope.newTask.done = false
-    console.log(newTask)
-    $http.post('/tasks', $scope.newTask).success (data) ->
+    console.log(JSON.stringify($scope.newTask))
+    $http
+      method: 'post',
+      url: '/tasks',
+      data: $scope.newTask,
+      headers: {"Content-Type" : "application/x-www-form-urlencoded"}
+    .success (data) ->
       console.log(data)
+
+
+  $scope.deleteTask = (task) ->
+    confirmDelete = confirm "Are you sure you want to delete this task?"
+    if confirmDelete
+      $http.delete("/tasks/#{task.id}").success (data) ->
+        $scope.tasks.splice($scope.tasks.indexOf(task), 1)
 
 ]

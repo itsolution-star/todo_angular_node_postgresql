@@ -20,6 +20,7 @@
       <li ng-repeat="task in tasks">
         <h3>{{task.text}}</h3>
         <p>{{task.done}}</p>
+        <button ng-click="deleteTask(task)">Delete</button>
       </li>
     </ul>
 

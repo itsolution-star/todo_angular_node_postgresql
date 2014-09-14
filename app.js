@@ -8,7 +8,7 @@ var express = require('express'),
 
 // Middleware
 app.use(express.static(__dirname + '/public'));
-app.use(bodyParser.urlencoded());
+// app.use(bodyParser.urlencoded());
 
 // Views
 app.set('views', __dirname + '/views');
@@ -34,14 +34,14 @@ app.get('/tasks/:id', function(req, res) {
 app.post('/tasks', function(req, res) {
   console.log(req.body)
   var newTask = req.body;
-  db.task.create(newTask).success(function(task) {
+  db.task.create({text: newTask.text, done: false}).success(function(task) {
     res.json(task);
   });
 });
 
 app.put('/tasks/:id', function(req, res) {
   var id = req.params.id;
-  var updateTask = req.params.task;
+  var updateTask = req.body;
   db.task.find(id).success(function(task) {
     task.updateAttributes(updateTask).success(function(task) {
       res.json({task: task});

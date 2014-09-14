@@ -24,12 +24,27 @@ TodoApp.controller('TodoCtrl', [
       });
     };
     $scope.getTasks();
-    return $scope.addTask = function(newTask) {
-      $scope.newTask.done = false;
-      console.log(newTask);
-      return $http.post('/tasks', $scope.newTask).success(function(data) {
+    $scope.addTask = function(newTask) {
+      console.log(JSON.stringify($scope.newTask));
+      return $http({
+        method: 'post',
+        url: '/tasks',
+        data: $scope.newTask,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        }
+      }).success(function(data) {
         return console.log(data);
       });
+    };
+    return $scope.deleteTask = function(task) {
+      var confirmDelete;
+      confirmDelete = confirm("Are you sure you want to delete this task?");
+      if (confirmDelete) {
+        return $http["delete"]("/tasks/" + task.id).success(function(data) {
+          return $scope.tasks.splice($scope.tasks.indexOf(task), 1);
+        });
+      }
     };
   }
 ]);
