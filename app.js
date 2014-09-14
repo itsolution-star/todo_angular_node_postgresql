@@ -7,7 +7,6 @@ var express = require('express'),
   app = express();
 
 // Middleware
-app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({extended: false}));
 
@@ -19,7 +18,7 @@ app.set('view engine', 'html');
 // Routes
 app.get('/tasks', function(req, res) {
   db.task.findAll().success(function(tasks) {
-    res.json({tasks: tasks});
+    res.json(tasks);
   }).error(function() {
     res.send('No tasks found.');
   });
@@ -49,7 +48,7 @@ app.put('/tasks/:id', function(req, res) {
   });
 });
 
-app.delete('/tasts/:id', function(req, res) {
+app.delete('/tasks/:id', function(req, res) {
   var id = req.params.id;
   db.task.find(id).success(function(task) {
     task.destroy();
@@ -57,9 +56,10 @@ app.delete('/tasts/:id', function(req, res) {
   });
 });
 
+// loads the angular singlepage template
 app.get('*', function(req, res) {
-  res.sendFile('./public/index.html');
-})
+  res.render('/index.html');
+});
 
 app.listen(3000, function() {
   console.log("SERVER RUNNING");

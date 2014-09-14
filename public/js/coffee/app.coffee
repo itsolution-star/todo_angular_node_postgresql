@@ -1,12 +1,13 @@
-TodoApp = angular.module 'TodoApp', ["ngRoute"]
+TodoApp = angular.module 'TodoApp', ['ngRoute']
 
 TodoApp.config ["$routeProvider", "$locationProvider", ($routeProvider, $locationProvider) ->
+
   $routeProvider
-    .when '/',
-      templateUrl: "../../../views/index.html",
+    .when "/",
+      templateUrl: "../index.html"
       controller: "TodoCtrl"
   .otherwise
-      redirectTo: '/'
+    redirectTo: "/tasks"
 
   $locationProvider.html5Mode(true)
 
@@ -15,5 +16,16 @@ TodoApp.config ["$routeProvider", "$locationProvider", ($routeProvider, $locatio
 TodoApp.controller 'TodoCtrl', ['$scope', '$http', ($scope, $http) ->
 
   $scope.tasks = []
+
+  $scope.getTasks = ->
+    $http.get('/tasks').success (data) ->
+      $scope.tasks = data
+
+  $scope.getTasks()
+
+  $scope.addTask = (newTask) ->
+    $scope.newTask.done = false
+    $http.post('/tasks', $scope.newTask).success (data) ->
+      console.log(data)
 
 ]

@@ -24,14 +24,14 @@ gulp.task('compile-coffee', function() {
 });
 
 // Concat and minify js
-gulp.task('scripts', function() {
-  return gulp.src('./public/js/*.js')
-    .pipe(concat('all.js'))
-    .pipe(gulp.dest('./public/js/dist'))
-    .pipe(rename('all.min.js'))
-    .pipe(uglify())
-    .pipe(gulp.dest('./public/js/dist'));
-});
+// gulp.task('scripts', function() {
+//   return gulp.src('./public/js/*.js')
+//     .pipe(concat('all.js'))
+//     .pipe(gulp.dest('./public/js/dist'))
+//     .pipe(rename('all.min.js'))
+//     .pipe(uglify())
+//     .pipe(gulp.dest('./public/js/dist'));
+// });
 
 // Watch
 gulp.task('watch', function() {
@@ -40,4 +40,4 @@ gulp.task('watch', function() {
 });
 
 // Default tasks
-gulp.task('default', ['sass', 'compile-coffee', 'scripts', 'watch']);
+gulp.task('default', ['watch','sass', 'compile-coffee']);
