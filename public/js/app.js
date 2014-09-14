@@ -25,7 +25,7 @@
       };
       $scope.getTasks();
       $scope.addTask = function(newTask) {
-        console.log(JSON.stringify($scope.newTask));
+        console.log($scope.newTask);
         return $http({
           method: 'post',
           url: '/tasks',

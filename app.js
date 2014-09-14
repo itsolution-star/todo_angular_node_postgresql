@@ -8,7 +8,9 @@ var express = require('express'),
 
 // Middleware
 app.use(express.static(__dirname + '/public'));
-// app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+app.use(methodOverride());
 
 // Views
 app.set('views', __dirname + '/views');
