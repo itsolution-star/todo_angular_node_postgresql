@@ -1,2 +1,114 @@
+* {
+  box-sizing: border-box; }
+
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  background: #b4e7cd; }
+
+.todos {
+  width: 80%;
+  margin: 0 auto; }
+
+input[type="text"] {
+  font-size: 1.5em;
+  appearance: none;
+  border: 2px solid #c0c7ce;
+  background: #dde0e4;
+  border-radius: 4px;
+  color: #319e66;
+  outline: none;
+  padding: 0.15em; }
+
+header.page-header {
+  margin-bottom: 1em;
+  background: #3fc380;
+  padding: 1em;
+  color: #b01cff; }
+  header.page-header input {
+    border: 2px solid #319e66; }
+  header.page-header .btn {
+    border: 2px solid #319e66;
+    background: #195034;
+    position: relative;
+    top: -0.2em; }
+    header.page-header .btn:hover {
+      background: #25774d; }
+
 h1 {
-  color: red; }
+  font-family: 'Rock Salt', serif;
+  text-transform: uppercase; }
+  h1 .spaced {
+    letter-spacing: 8px; }
+
+.btn {
+  appearance: none;
+  font-size: 1em;
+  padding: 0.55em;
+  border-radius: 4px;
+  border: 1px solid #a4adb7;
+  background: #8794a1;
+  color: white;
+  cursor: pointer; }
+  .btn:hover {
+    background: #96a0ac; }
+
+.todo-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-indent: 0;
+  text-align: left;
+  color: #c8f7c5;
+  margin-bottom: 2em; }
+
+.task {
+  width: 100%;
+  padding: 1em;
+  background: #6c7a89;
+  border-bottom: 1px solid #999;
+  cursor: pointer;
+  overflow: hidden; }
+  .task:hover {
+    background: #56616c; }
+  .task .task-static {
+    position: relative;
+    overflow: hidden;
+    width: 100%; }
+    .task .task-static .task-text {
+      width: 70%;
+      font-size: 1.5em;
+      padding: 0.25em 0.5em 0 0.5em;
+      line-height: 1.5em;
+      float: left; }
+    .task .task-static .task-done {
+      width: 20px;
+      height: 20px;
+      border-radius: 100%;
+      margin: 1em 0.5em 0 0.5em;
+      border: 2px solid #3fc380;
+      float: right; }
+      .task .task-static .task-done.task-done-true {
+        background: #3fc380; }
+  .task .task-edit-form {
+    width: 100%;
+    float: left;
+    padding: 2.1em 0 0 0; }
+    .task .task-edit-form input[type="text"] {
+      font-size: 1.5em;
+      appearance: none;
+      border: 2px solid #c0c7ce;
+      background: #dde0e4;
+      border-radius: 4px;
+      color: #319e66;
+      outline: none;
+      padding: 0.15em; }
+  .task .remove-task {
+    float: right;
+    text-align: right;
+    display: block;
+    position: relative;
+    top: -2em;
+    right: 1em; }

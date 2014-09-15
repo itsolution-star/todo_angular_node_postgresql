@@ -18,26 +18,20 @@ TodoApp.config([
 TodoApp.controller('TodoCtrl', [
   '$scope', '$http', function($scope, $http) {
     $scope.tasks = [];
-    $scope.getTasks = function() {
+    $scope.showEdit = [];
+    $scope.allTasks = function() {
       return $http.get('/tasks').success(function(data) {
         return $scope.tasks = data;
       });
     };
-    $scope.getTasks();
-    $scope.addTask = function(newTask) {
-      console.log($scope.newTask);
-      return $http({
-        method: 'post',
-        url: '/tasks',
-        data: $scope.newTask,
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        }
-      }).success(function(data) {
-        return console.log(data);
+    $scope.allTasks();
+    $scope.addTask = function(task) {
+      return $http.post('/tasks', $scope.newTask).success(function(data) {
+        $scope.newTask = {};
+        return $scope.tasks.unshift(data);
       });
     };
-    return $scope.deleteTask = function(task) {
+    $scope.deleteTask = function(task) {
       var confirmDelete;
       confirmDelete = confirm("Are you sure you want to delete this task?");
       if (confirmDelete) {
@@ -45,6 +39,22 @@ TodoApp.controller('TodoCtrl', [
           return $scope.tasks.splice($scope.tasks.indexOf(task), 1);
         });
       }
+    };
+    $scope.editTask = function(index) {
+      $scope.showEdit = [];
+      return $scope.showEdit[index] = true;
+    };
+    $scope.closeEdits = function() {
+      return $scope.showEdit = [];
+    };
+    return $scope.updateTask = function(task) {
+      return $http.put("/tasks/" + task.id, {
+        text: this.task.text,
+        done: this.task.done
+      }).success(function(data) {
+        $scope.task = {};
+        return $scope.showEdit = [];
+      });
     };
   }
 ]);

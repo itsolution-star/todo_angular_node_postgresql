@@ -3,24 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <title>Todo App</title>
+  <link href='http://fonts.googleapis.com/css?family=Rock+Salt:400,700|Roboto' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="/styles/global.css">
 </head>
 <body ng-app="TodoApp">
-  <h1>Hello World</h1>
+
   <p>inside public</p>
-  <div ng-controller="TodoCtrl">
+  <div class="todos" ng-controller="TodoCtrl">
+    <header class="page-header">
+      <h1><span class="spaced">t'</span>done</h1>
 
-    <form action="javascript:void(0)" ng-submit="addTask(newTask)">
-      <input type="text" ng-model="newTask.text" placholder="Add a todo item">
-      <input type="hidden" ng-model="newTask.done" value="false">
-      <button>Add a todo</button>
-    </form>
-
-    <ul>
-      <li ng-repeat="task in tasks">
-        <h3>{{task.text}}</h3>
-        <p>{{task.done}}</p>
-        <button ng-click="deleteTask(task)">Delete</button>
+      <form action="javascript:void(0)" ng-submit="addTask(newTask)">
+        <input type="text" ng-model="newTask.text">
+        <button class="btn">Add todo</button>
+      </form>
+    </header>
+    <ul class="todo-list">
+      <li class="task" ng-repeat="task in tasks" class="done-{{task.done}}">
+        <div class="task-static" ng-dblclick="editTask($index)" ng-hide="showEdit[$index]">
+          <div class="task-text">{{task.text}}</div>
+          <div class="task-done task-done-{{task.done}}"></div>
+        </div>
+        <div class="task-edit-form" ng-show="showEdit[$index]">
+          <form action="javascript:void(0)" ng-submit="updateTask(task)">
+            <input type="text" ng-model="task.text" autofocus>
+            <input type="checkbox" id="task-done" ng-model="task.done" unchecked><label for="task-done">Done</label></input>
+            <button class="btn">Update task</button>
+          </form>
+          <button class="btn remove-task" ng-click="deleteTask(task)">Remove task</button>
+        </div>
       </li>
     </ul>
 
